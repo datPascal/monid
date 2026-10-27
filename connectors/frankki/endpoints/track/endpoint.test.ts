@@ -46,10 +46,11 @@ Deno.test("frankki#track provider error (recorded 2026-10-27): wrong key is 401,
     assertEquals(result.httpStatus, 401);
     assertEquals(result.isProviderError, true);
     assertEquals(result.usage, { credits: {}, evidence: {} });
-    assertEquals(
-        (result.output as Record<string, unknown>).code,
-        "UNAUTHORIZED",
-    );
+    // fromError's shape: {message, code, raw}; the raw envelope rides under raw
+    const output = result.output as Record<string, unknown>;
+    assertEquals(output.code, "UNAUTHORIZED");
+    assertEquals(typeof output.message, "string");
+    assertEquals((output.raw as Record<string, unknown>).status, "error");
 });
 
 Deno.test("frankki#track schema gate: tracking token 20-200 characters", async () => {

@@ -59,10 +59,11 @@ Deno.test("frankki#address-check provider error (recorded 2026-10-27): wrong key
     assertEquals(result.httpStatus, 401);
     assertEquals(result.isProviderError, true);
     assertEquals(result.usage, { credits: {}, evidence: {} });
-    assertEquals(
-        (result.output as Record<string, unknown>).code,
-        "UNAUTHORIZED",
-    );
+    // fromError's shape: {message, code, raw}; the raw envelope rides under raw
+    const output = result.output as Record<string, unknown>;
+    assertEquals(output.code, "UNAUTHORIZED");
+    assertEquals(typeof output.message, "string");
+    assertEquals((output.raw as Record<string, unknown>).status, "error");
 });
 
 Deno.test("frankki#address-check schema gate: name, street, city and ISO country required", async () => {

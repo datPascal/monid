@@ -1,4 +1,4 @@
-import { assertEquals } from "@std/assert";
+import { assert, assertEquals } from "@std/assert";
 import { testBundle } from "@shared/testing";
 
 const BASE = "https://backend.frankki.app/api/v1/public/monid/letter";
@@ -34,5 +34,6 @@ Deno.test("frankki provenance: six POSTs on one host, FREE, provider-shared fns"
             ),
         );
         assertEquals(keys.size, 1, slot);
+        assert(!keys.has(undefined), `${slot} fn entry missing`);
     }
 });
