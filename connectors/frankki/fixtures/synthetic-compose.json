@@ -1,0 +1,54 @@
+{
+    "name": "synthetic-compose",
+    "description": "frankki#compose happy path: a new draft returns draftToken and trackingToken",
+    "calls": [
+        {
+            "req": {
+                "method": "POST",
+                "url": "https://backend.frankki.app/api/v1/public/monid/letter/compose",
+                "body": {
+                    "subject": "Kuendigung",
+                    "content": "Sehr geehrte Damen und Herren,\nhiermit kuendige ich.\nMit freundlichen Gruessen\nErika Muster",
+                    "sender": {
+                        "name": "Erika Muster",
+                        "street": "Hauptstrasse",
+                        "houseNumber": "1",
+                        "zip": "10115",
+                        "city": "Berlin",
+                        "country": "DE"
+                    },
+                    "recipient": {
+                        "name": "Beispiel GmbH",
+                        "street": "Marktplatz",
+                        "houseNumber": "5",
+                        "zip": "80331",
+                        "city": "Muenchen",
+                        "country": "DE"
+                    }
+                }
+            },
+            "res": {
+                "status": 200,
+                "body": {
+                    "status": "success",
+                    "code": "OK",
+                    "data": {
+                        "draftToken": "dft_syntheticsyntheticsynthetic",
+                        "trackingToken": "trk_syntheticsyntheticsynthetic",
+                        "version": 1,
+                        "pageCount": 1,
+                        "quoteCents": 349,
+                        "deliveryType": "standard",
+                        "recipient": {
+                            "name": "Beispiel GmbH",
+                            "city": "Muenchen",
+                            "country": "DE"
+                        },
+                        "estimatedDeliveryRange": { "minDays": 1, "maxDays": 3 }
+                    },
+                    "requestId": "req_synthetic_compose"
+                }
+            }
+        }
+    ]
+}
